@@ -74,7 +74,7 @@ window.sendpost = function(data, path) {
   var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
   xhr.open('POST', path);
   xhr.onreadystatechange = function () {
-    if (xhr.readyState > 3 && xhr.status == 200) { this.close(); }
+    if (xhr.readyState > 3 && (xhr.status == 200 || xhr.status == 201)) { this.close(); }
   }.bind(this);
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
