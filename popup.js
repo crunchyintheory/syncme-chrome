@@ -82,7 +82,6 @@ window.sendpost = function(data, path) {
 }
 
 function getTime() {
-  console.log('hi');
   var video = document.querySelector('video');
   var time = 'na';
   if (video) {
