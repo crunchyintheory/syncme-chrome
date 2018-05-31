@@ -7,6 +7,9 @@ function loadframe(key) {
       document.querySelector('iframe').src = `http://192.168.1.95/tabs/list/lite?key=${key}`;
     });
   }
+  else {
+    document.querySelector('iframe').src = `http://192.168.1.95/tabs/list/lite?key=${key}`;
+  }
 }
 
 function storekey() {
