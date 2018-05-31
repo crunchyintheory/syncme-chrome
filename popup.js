@@ -1,5 +1,20 @@
 var gurl, gfav, gtitle, gid;
 
+function loadframe(key) {
+  if(key == undefined) {
+    chrome.storage.sync.get('key', k => {
+      key = k.key;
+      document.querySelector('iframe').src = `http://192.168.1.95/tabs/list/lite?key=${key}`;
+    });
+  }
+}
+
+function storekey() {
+  var key = document.querySelector('input#key').value;
+  chrome.storage.sync.set({key: key});
+  loadframe(key);
+}
+
 /**
  * Get the current URL.
  *
@@ -91,15 +106,19 @@ function getTime() {
 }
 
 function getTimeCallback(time) {
-  var params = {
-    url: gurl,
-    date: getDate(),
-    host: 'Betsy',
-    timestamp: time,
-    icon: gfav,
-    title: gtitle
-  }
-  this.sendpost(params, 'http://192.168.1.95/tabs/add');
+  chrome.storage.sync.get('key', k => {
+    var key = k.key;
+    var params = {
+      url: gurl,
+      date: getDate(),
+      host: 'Betsy',
+      timestamp: time,
+      icon: gfav,
+      title: gtitle,
+      key: key
+    }
+    this.sendpost(params, 'http://192.168.1.95/tabs/add');
+  });
 }
 
 // This extension loads the saved background color for the current tab if one
@@ -126,5 +145,10 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }
     document.querySelector('button').addEventListener('click', addtab);
+    loadframe();
+    chrome.storage.sync.get('key', key => {
+      document.querySelector('input#key').value = key.key;
+    });
+    document.querySelector('input#key').oninput = storekey;
   });
 });
