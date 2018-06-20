@@ -3,7 +3,7 @@
 
     "name": "Sync Me",
     "description": "No thanks",
-    "version": "0.1.2",
+    "version": "0.1.3",
 
     "browser_action": {
         "default_icon": "icon.png",
